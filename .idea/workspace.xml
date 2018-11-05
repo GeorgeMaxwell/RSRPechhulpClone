@@ -2352,7 +2352,7 @@
   </component>
   <component name="PropertiesComponent">
     <property name="android.sdk.path" value="$USER_HOME$/AppData/Local/Android/Sdk" />
-    <property name="device.picker.selection" value="Nexus_5X_API_24_2" />
+    <property name="device.picker.selection" value="HBEDU18313010043" />
     <property name="last_directory_selection" value="$PROJECT_DIR$/app/src/main/res/drawable-xxxhdpi" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$/../rsrpecchulp" />
     <property name="settings.editor.selected.configurable" value="AndroidSdkUpdater" />
