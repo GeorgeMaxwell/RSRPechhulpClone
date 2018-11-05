@@ -4,6 +4,5 @@
     <string name="image_description">Main Background</string>
     <string name="btn_rsr_pechhulp">RSR Pechhulp</string>
     <string name="dialog_confirm_privacy">BEVESTIG</string>
-    <string name="dialog_info_text">privacybeleid
-om deze app te gebruiken, dient u het privacybeleid te accepteren</string>
+    <string name="dialog_info_text">"Privacybeleid \n \nOm deze app te gebruiken, dient u het" <a href="https://www.rsr.nl/index.php?page=privacy-wetgeving">privacybeleid</a> "accepteren\n"</string>
 </resources>

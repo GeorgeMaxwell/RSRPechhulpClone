@@ -4,6 +4,8 @@ import android.app.Dialog;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.text.Html;
+import android.text.method.LinkMovementMethod;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -29,12 +31,21 @@ public class MainActivity extends AppCompatActivity {
         privacyInformation.setVisibility(View.VISIBLE);*/
         final Dialog dialog = new Dialog(this);
         dialog.setContentView(R.layout.privacy_information_dialog);
-        dialog.setCancelable(true);
-        dialog.setTitle("test");
-        final TextView textView = (TextView)findViewById(R.id.privacy_info_txt);
-        textView.requestFocus();
-        final Button button = (Button)findViewById(R.id.confirm_privacy_btn);
+        dialog.setTitle("Add City");
+        dialog.setCancelable(false);
 
+        final TextView cityName = (TextView) dialog.findViewById(R.id.privacy_info_txt);
+        cityName.requestFocus();
+        Button addCityBtn = (Button) dialog.findViewById(R.id.confirm_privacy_btn);
+        cityName.setMovementMethod(LinkMovementMethod.getInstance());
+
+        addCityBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog.dismiss();
+            }
+        });
+        dialog.show();
 
 
 
