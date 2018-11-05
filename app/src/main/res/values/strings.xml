@@ -3,4 +3,7 @@
     <string name="action_info">Information</string>
     <string name="image_description">Main Background</string>
     <string name="btn_rsr_pechhulp">RSR Pechhulp</string>
+    <string name="dialog_confirm_privacy">BEVESTIG</string>
+    <string name="dialog_info_text">privacybeleid
+om deze app te gebruiken, dient u het privacybeleid te accepteren</string>
 </resources>

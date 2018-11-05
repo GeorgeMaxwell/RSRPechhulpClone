@@ -1,14 +1,14 @@
 package com.example.android.rsrpechulp;
 
+import android.app.Dialog;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.ImageView;
+import android.view.View;
+import android.widget.Button;
+import android.widget.TextView;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -18,6 +18,26 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+        Menu privacyInformationBtn = (Menu) findViewById(R.id.action_privacy_info);
+
+    }
+    public void displayInformation(){
+        /*String privacyInformationText = "privacybeleid \n" +
+                "om deze app te gebruiken, dient u het privacybeleid te accepteren\n";
+        TextView privacyInformation = new TextView(this);
+        privacyInformation.setText(privacyInformationText);
+        privacyInformation.setVisibility(View.VISIBLE);*/
+        final Dialog dialog = new Dialog(this);
+        dialog.setContentView(R.layout.privacy_information_dialog);
+        dialog.setCancelable(true);
+        dialog.setTitle("test");
+        final TextView textView = (TextView)findViewById(R.id.privacy_info_txt);
+        textView.requestFocus();
+        final Button button = (Button)findViewById(R.id.confirm_privacy_btn);
+
+
+
+
     }
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -34,7 +54,8 @@ public class MainActivity extends AppCompatActivity {
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
-        if (id == R.id.action_info) {
+        if (id == R.id.action_privacy_info) {
+            displayInformation();
             return true;
         }
 
