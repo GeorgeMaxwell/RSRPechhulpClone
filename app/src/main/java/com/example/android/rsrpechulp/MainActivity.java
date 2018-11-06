@@ -1,7 +1,11 @@
 package com.example.android.rsrpechulp;
 
+import android.Manifest;
 import android.app.Dialog;
+import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.text.Html;
@@ -12,42 +16,46 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
+import com.google.android.gms.maps.GoogleMap;
+
 public class MainActivity extends AppCompatActivity {
 
     @Override
+
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        Menu privacyInformationBtn = (Menu) findViewById(R.id.action_privacy_info);
+        Button rsrPechhulp = (Button) findViewById(R.id.btn_rsr_pecchulp);
+        rsrPechhulp.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MainActivity.this, MapsActivity.class);
+                MainActivity.this.startActivity(intent);
+            }
+        });
 
     }
     public void displayInformation(){
-        /*String privacyInformationText = "privacybeleid \n" +
-                "om deze app te gebruiken, dient u het privacybeleid te accepteren\n";
-        TextView privacyInformation = new TextView(this);
-        privacyInformation.setText(privacyInformationText);
-        privacyInformation.setVisibility(View.VISIBLE);*/
+
         final Dialog dialog = new Dialog(this);
         dialog.setContentView(R.layout.privacy_information_dialog);
         dialog.setTitle("Add City");
         dialog.setCancelable(false);
 
-        final TextView cityName = (TextView) dialog.findViewById(R.id.privacy_info_txt);
-        cityName.requestFocus();
-        Button addCityBtn = (Button) dialog.findViewById(R.id.confirm_privacy_btn);
-        cityName.setMovementMethod(LinkMovementMethod.getInstance());
+        final TextView privacyInfo = (TextView) dialog.findViewById(R.id.privacy_info_txt);
+        privacyInfo.requestFocus();
+        Button confirmPrivacy = (Button) dialog.findViewById(R.id.confirm_privacy_btn);
+        privacyInfo.setMovementMethod(LinkMovementMethod.getInstance());
 
-        addCityBtn.setOnClickListener(new View.OnClickListener() {
+        confirmPrivacy.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 dialog.dismiss();
             }
         });
         dialog.show();
-
-
 
     }
     @Override

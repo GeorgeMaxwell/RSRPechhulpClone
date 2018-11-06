@@ -5,4 +5,5 @@
     <string name="btn_rsr_pechhulp">RSR Pechhulp</string>
     <string name="dialog_confirm_privacy">BEVESTIG</string>
     <string name="dialog_info_text">"Privacybeleid \n \nOm deze app te gebruiken, dient u het" <a href="https://www.rsr.nl/index.php?page=privacy-wetgeving">privacybeleid</a> "accepteren\n"</string>
+    <string name="title_activity_maps">Map</string>
 </resources>
