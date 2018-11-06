@@ -9,6 +9,7 @@ import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
+import android.util.Log;
 import android.widget.Toast;
 
 import com.google.android.gms.location.FusedLocationProviderClient;
@@ -19,6 +20,7 @@ import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 
 public class MapsActivity extends FragmentActivity implements OnMapReadyCallback {
@@ -26,6 +28,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     private GoogleMap mMap;
     private FusedLocationProviderClient mFusedLocationClient;
     static public int LOCATION_PERMISSION = 1;
+    public Location currentLocation;
 
 
 
@@ -45,7 +48,22 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             requestLocationPermission();
             // Show rationale and request permission.
         }
-        getLocation();
+        final double[] longitude = new double[2];
+       /* mFusedLocationClient = LocationServices.getFusedLocationProviderClient(this);
+        mFusedLocationClient.getLastLocation()
+                .addOnSuccessListener(this, new OnSuccessListener<Location>() {
+                    @Override
+                    public void onSuccess(Location location) {
+
+                        // Got last known location. In some rare situations this can be null.
+                        if (location != null) {
+                         longitude[0] =location.getLongitude();
+                         longitude[1] = location.getLatitude();
+                         String tests = "";
+                            // Logic to handle location object
+                        }
+                    }
+                });*/
 
     }
     public void requestLocationPermission(){
@@ -64,21 +82,29 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     }
 
     public void getLocation(){
+        /*if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION)
+                == PackageManager.PERMISSION_GRANTED) {
+        } else {
+            requestLocationPermission();
+            // Show rationale and request permission.
+        }
+        final double[] coords = new double[2];
         mFusedLocationClient = LocationServices.getFusedLocationProviderClient(this);
-
         mFusedLocationClient.getLastLocation()
                 .addOnSuccessListener(this, new OnSuccessListener<Location>() {
                     @Override
                     public void onSuccess(Location location) {
-                        Location test = location;
-                        String tests ="";
 
                         // Got last known location. In some rare situations this can be null.
                         if (location != null) {
+                            coords[0] = location.getLatitude();
+                            coords[1] = location.getLongitude();
                             // Logic to handle location object
                         }
                     }
                 });
+
+        return coords;*/
     }
 
 
@@ -94,10 +120,11 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     @Override
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
-
+        //double [] coords = getLocation();
         // Add a marker in Sydney and move the camera
-        LatLng sydney = new LatLng(51.5809992, -0.4278063);
-        mMap.addMarker(new MarkerOptions().position(sydney).title("Marker in Sydney"));
-        mMap.moveCamera(CameraUpdateFactory.newLatLng(sydney));
+        LatLng currentLocation = new LatLng(51.5074, 0.1278);
+        mMap.addMarker(new MarkerOptions().position(currentLocation).title("Current Location"));
+        mMap.moveCamera(CameraUpdateFactory.newLatLng(currentLocation));
+
     }
 }
