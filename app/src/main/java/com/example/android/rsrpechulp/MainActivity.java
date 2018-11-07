@@ -12,8 +12,6 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
-import com.google.android.gms.maps.GoogleMap;
-
 public class MainActivity extends AppCompatActivity {
 
     @Override
@@ -36,13 +34,13 @@ public class MainActivity extends AppCompatActivity {
     public void displayInformation(){
 
         final Dialog dialog = new Dialog(this);
-        dialog.setContentView(R.layout.privacy_information_dialog);
+        dialog.setContentView(R.layout.gps_confirmation_dialog);
         dialog.setTitle("Add City");
         dialog.setCancelable(false);
 
-        final TextView privacyInfo = (TextView) dialog.findViewById(R.id.privacy_info_txt);
+        final TextView privacyInfo = (TextView) dialog.findViewById(R.id.gps_confirm_txt);
         privacyInfo.requestFocus();
-        Button confirmPrivacy = (Button) dialog.findViewById(R.id.confirm_privacy_btn);
+        Button confirmPrivacy = (Button) dialog.findViewById(R.id.confirm_gps_btn);
         privacyInfo.setMovementMethod(LinkMovementMethod.getInstance());
 
         confirmPrivacy.setOnClickListener(new View.OnClickListener() {

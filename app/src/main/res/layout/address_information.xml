@@ -3,14 +3,13 @@
     android:orientation="horizontal"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@android:color/holo_blue_dark"
+    android:background="#B30099cc"
     android:padding="10dp">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">
-
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -19,28 +18,30 @@
             android:ellipsize="end"
             android:maxLines="1"
             android:textColor="@android:color/white"
-            android:textSize="14dp"
-            android:textStyle="bold"
-            />
+            android:textSize="17dp"
+            android:textStyle="bold"/>
         <TextView
-            android:layout_width="wrap_content"
+            android:layout_width="200dp"
             android:layout_height="wrap_content"
             android:ellipsize="end"
             android:maxLines="10"
             android:textSize="14sp"
             android:textColor="@android:color/white"
+            android:paddingTop="10dp"
             android:id="@+id/address"
-            />
+            android:gravity="center" />
 
         <TextView
-            android:layout_width="wrap_content"
+            android:layout_width="200dp"
             android:layout_height="wrap_content"
             android:ellipsize="end"
             android:maxLines="10"
             android:textSize="14sp"
             android:textColor="@android:color/white"
+            android:paddingTop="10dp"
             android:id="@+id/remember_warning"
-            android:text="@string/remember_warning"/>
+            android:text="@string/remember_warning"
+            android:gravity="center" />
     </LinearLayout>
 
 </LinearLayout>
