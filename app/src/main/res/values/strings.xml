@@ -3,7 +3,9 @@
     <string name="action_info">Information</string>
     <string name="image_description">Main Background</string>
     <string name="btn_rsr_pechhulp">RSR Pechhulp</string>
+    <string name="btn_call_provider">Bel RSR nu</string>
     <string name="dialog_confirm_privacy">BEVESTIG</string>
     <string name="dialog_info_text">"Privacybeleid \n \nOm deze app te gebruiken, dient u het" <a href="https://www.rsr.nl/index.php?page=privacy-wetgeving">privacybeleid</a> "accepteren\n"</string>
-    <string name="title_activity_maps">Map</string>
+    <string name="title_activity_maps">RSR Pechhulp</string>
+    <string name="remember_warning">onthoud deze locatie voor het telefoongesprek</string>
 </resources>
