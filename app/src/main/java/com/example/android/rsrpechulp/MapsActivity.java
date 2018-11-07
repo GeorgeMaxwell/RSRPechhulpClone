@@ -98,13 +98,15 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
         mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(currentLatlng, DEFAULT_ZOOM));
 
         List<Address> currentAddress = new GetCompleteAddress(currentLocation,this).getAdress();
+
         Marker currentLocationInfo = mMap.addMarker(new MarkerOptions()
                 .position(currentLatlng)
                 .title("Uw Locatie:")
                 .snippet(currentAddress.get(0).getAddressLine(0)));
+
+        mMap.setInfoWindowAdapter(new CustomInfoAdapter(MapsActivity.this));
+
         currentLocationInfo.showInfoWindow();
-
-
 
         //mMap.addMarker(new MarkerOptions().position(currentLatlng).title("Current Location")).showInfoWindow();
 
