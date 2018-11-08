@@ -35,13 +35,13 @@ public class MainActivity extends AppCompatActivity {
 
         final Dialog dialog = new Dialog(this);
         dialog.setContentView(R.layout.gps_confirmation_dialog);
-        dialog.setTitle("Add City");
+        dialog.setTitle("Privacy Info");
         dialog.setCancelable(false);
 
-        final TextView privacyInfo = (TextView) dialog.findViewById(R.id.gps_confirm_txt);
-        privacyInfo.requestFocus();
+        final TextView tvPrivacyInfo = (TextView) dialog.findViewById(R.id.gps_confirm_txt);
+        tvPrivacyInfo.requestFocus();
         Button confirmPrivacy = (Button) dialog.findViewById(R.id.confirm_gps_btn);
-        privacyInfo.setMovementMethod(LinkMovementMethod.getInstance());
+        tvPrivacyInfo.setMovementMethod(LinkMovementMethod.getInstance());
 
         confirmPrivacy.setOnClickListener(new View.OnClickListener() {
             @Override

@@ -1,7 +1,9 @@
 package com.example.android.rsrpechulp;
 
 import android.Manifest;
+import android.app.AlertDialog;
 import android.app.Dialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Color;
@@ -9,6 +11,7 @@ import android.graphics.drawable.ColorDrawable;
 import android.location.Address;
 import android.location.Location;
 import android.location.LocationManager;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -16,7 +19,11 @@ import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.text.method.LinkMovementMethod;
+import android.view.Gravity;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.TextView;
 
@@ -40,11 +47,13 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
 
     private static final String FINE_LOCATION = Manifest.permission.ACCESS_FINE_LOCATION;
     private static final String COURSE_LOCATION = Manifest.permission.ACCESS_COARSE_LOCATION;
-    private static final int LOCATION_PERMISSION_REQUEST_CODE = 1234;
+    private static final int LOCATION_PERMISSION_REQUEST_CODE = 1;
+    private static final int REQUEST_PHONE_CALL = 1;
     private static final float DEFAULT_ZOOM = 16f;
+
     private Boolean mLocationPermissionsGranted = false;
     private GoogleMap mMap;
-    private FusedLocationProviderClient mFusedLocationProviderClient;
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -59,6 +68,7 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
             buildAlertMessageNoGps();
         }else
             getLocationPermission();
+        createCallInfoButton();
     }
     @Override
     public boolean onSupportNavigateUp() {
@@ -77,6 +87,49 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
             }
         }
     }
+    private void createCallInfoButton(){
+        final Button openCallInfo = (Button) findViewById(R.id.btn_open_call_info);
+        openCallInfo.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                openCallInfo.setVisibility(View.GONE);
+                callRateInfo();
+            }
+        });
+    }
+    private void callRateInfo(){
+        final Dialog dialog = new Dialog(this);
+        dialog.setContentView(R.layout.call_rate_information);
+        Window window = dialog.getWindow();
+        WindowManager.LayoutParams wlp = window.getAttributes();
+        wlp.gravity=Gravity.BOTTOM;
+        wlp.verticalMargin=0.03f;
+        wlp.flags &= ~WindowManager.LayoutParams.FLAG_DIM_BEHIND;
+        window.setAttributes(wlp);
+        dialog.getWindow().setAttributes(wlp);
+        dialog.setCancelable(true);
+        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.parseColor("#B3ace600")));
+        dialog.show();
+        final Button makeCall = (Button) findViewById(R.id.make_call);
+
+       /* makeCall.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                makeCall();
+                dialog.dismiss();
+            }
+        });*/
+
+    }
+    private void makeCall(){
+        final String phone = "+319007788990";
+        Intent callIntent = new Intent(Intent.ACTION_CALL);
+        callIntent.setData(Uri.parse("tel:"+ phone));
+        if (ContextCompat.checkSelfPermission(MapsActivity.this, Manifest.permission.CALL_PHONE) != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(MapsActivity.this, new String[]{Manifest.permission.CALL_PHONE},REQUEST_PHONE_CALL);
+        }else
+            startActivity(callIntent);
+    }
 
     private void buildAlertMessageNoGps() {
         final Dialog dialog = new Dialog(this);
@@ -94,7 +147,6 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
                 dialog.dismiss();
                 Intent callGPSSettingIntent = new Intent(android.provider.Settings.ACTION_LOCATION_SOURCE_SETTINGS);
                 startActivity(callGPSSettingIntent);
-
             }
         });
         denyGpsButton.setOnClickListener(new View.OnClickListener() {
@@ -109,7 +161,7 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
     }
 
     private void getDeviceLocation(){
-        mFusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this);
+        FusedLocationProviderClient mFusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this);
         try{
             if(mLocationPermissionsGranted){
                 final Task location = mFusedLocationProviderClient.getLastLocation();

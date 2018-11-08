@@ -5,7 +5,7 @@
     <string name="btn_rsr_pechhulp">RSR Pechhulp</string>
     <string name="btn_call_provider">Bel RSR nu</string>
     <string name="dialog_confirm_gps">AANZETTEN</string>
-    <string name="dialog_deny_gps">ANNULEREN</string>
+    <string name="cancel_dialog">ANNULEREN</string>
     <string name="dialog_info_text">"Uw GPS is uitgeschakeld. Schakel het alstublieft in om door te gaan?</string>
     <string name="dialog_info_title">"GPS uitgeschakeld</string>
     <string name="title_activity_maps">RSR Pechhulp</string>
