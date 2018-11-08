@@ -10,4 +10,7 @@
     <string name="dialog_info_title">"GPS uitgeschakeld</string>
     <string name="title_activity_maps">RSR Pechhulp</string>
     <string name="remember_warning">onthoud deze locatie voor het telefoongesprek</string>
+    <string name="call_rate_title">Belkosten</string>
+    <string name="call_rate_information">Voor dit nummer betaalt u uw gebruikelijke belkosten.</string>
+    <string name="call_button">Bu nu</string>
 </resources>
