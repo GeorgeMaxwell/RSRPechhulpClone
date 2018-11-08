@@ -12,5 +12,5 @@
     <string name="remember_warning">onthoud deze locatie voor het telefoongesprek</string>
     <string name="call_rate_title">Belkosten</string>
     <string name="call_rate_information">Voor dit nummer betaalt u uw gebruikelijke belkosten.</string>
-    <string name="call_button">Bu nu</string>
+    <string name="call_button">Bel nu</string>
 </resources>

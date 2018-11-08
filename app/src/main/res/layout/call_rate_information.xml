@@ -2,57 +2,64 @@
     <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/coordinatorLayout"
+    android:id="@+id/frame_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
     tools:context=".MapsActivity">
 
-    <!--Button
+    <Button
         android:id="@+id/call_info_btn"
-        android:layout_width="wrap_content"
+        android:layout_width="161dp"
         android:layout_height="wrap_content"
-        android:drawableLeft="@drawable/main_btn_close"
+        android:layout_gravity="left|center_vertical"
+        android:layout_marginLeft="60dp"
+        android:layout_marginTop="40dp"
         android:drawableStart="@drawable/main_btn_close"
+        android:drawableLeft="@drawable/main_btn_close"
         android:drawablePadding="2dip"
-        android:paddingLeft="30dip"
         android:paddingStart="30dip"
-        android:paddingRight="26dip"
+        android:paddingLeft="30dip"
         android:paddingEnd="26dip"
+        android:paddingRight="26dip"
         android:text="@string/cancel_dialog"
-        android:textColor="@android:color/white"
-        android:layout_gravity="top|start" /-->
+        android:textColor="@android:color/white" />
 
     <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="258dp"
+        android:layout_height="192dp"
         android:layout_gravity="bottom|center"
         android:orientation="vertical">
 
         <TextView
             android:id="@+id/call_rates_title"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal|top"
+            android:layout_height="41dp"
+            android:layout_gravity="center_horizontal|bottom"
+            android:layout_marginTop="10dp"
+            android:paddingTop="20dp"
             android:text="@string/call_rate_title"
-            android:textColor="@android:color/white" ></TextView>
+            android:textColor="@android:color/white"
+            android:textSize="18sp" />
 
         <TextView
             android:id="@+id/call_rates_info"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            gra
+            android:layout_height="91dp"
+            android:gravity="center"
+            android:paddingBottom="20dp"
             android:text="@string/call_rate_information"
-            android:textColor="@android:color/white" />
+            android:textColor="@android:color/white"
+            android:textSize="16sp" />
 
         <Button
             android:id="@+id/make_call"
             android:layout_width="250dp"
             android:layout_height="40dp"
-            android:layout_gravity="bottom|center"
+            android:layout_gravity="center|center"
+            android:background="@android:color/holo_blue_dark"
             android:drawableLeft="@drawable/main_btn_phone"
             android:drawablePadding="2dip"
-            android:background="@android:color/holo_blue_dark"
             android:paddingLeft="30dip"
             android:paddingRight="26dip"
             android:text="@string/call_button"
@@ -62,4 +69,4 @@
     </LinearLayout>
 
 
-</FrameLay
+</FrameLayout>
