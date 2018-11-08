@@ -8,6 +8,7 @@ import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.location.Address;
 import android.location.Location;
+import android.location.LocationListener;
 import android.location.LocationManager;
 import android.net.Uri;
 import android.os.Bundle;
@@ -44,7 +45,7 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
     private static final int LOCATION_PERMISSION_REQUEST_CODE = 1;
     private static final int REQUEST_PHONE_CALL = 1;
     private static final float DEFAULT_ZOOM = 16f;
-
+    FusedLocationProviderClient mFusedLocationProviderClient;
     private Boolean mLocationPermissionsGranted = false;
     private GoogleMap mMap;
 
@@ -57,31 +58,41 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
         getSupportActionBar().setDisplayShowHomeEnabled(true);
         getSupportActionBar().setHomeAsUpIndicator(R.drawable.menu_arrow);
         getSupportActionBar().setBackgroundDrawable(new ColorDrawable(Color.parseColor("#ff0099cc")));
-        LocationManager manager = (LocationManager) getSystemService( this.LOCATION_SERVICE );
-        if ( !manager.isProviderEnabled( LocationManager.GPS_PROVIDER ) ) {
-            buildAlertMessageNoGps();
-        }else
-            getLocationPermission();
-        createCallInfoButton();
+        mFusedLocationProviderClient =  LocationServices.getFusedLocationProviderClient(this);
+        initMap();
+
+
     }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        if (!checkLocationPermission() && !checkLocationIsOn()) {
+            finish();
+        }else if (!checkLocationIsOn()) {
+            buildAlertMessageNoGps();
+
+        }else{
+            createCallInfoButton();
+            getDeviceLocation();
+
+        }
+    }
+
+
+
     @Override
     public boolean onSupportNavigateUp() {
         onBackPressed();
         return true;
     }
+
     @Override
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
-        if (mLocationPermissionsGranted) {
-            getDeviceLocation();
-            if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION)
-                    != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this,
-                    Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-                return;
-            }
-        }
     }
-    private void createCallInfoButton(){
+
+    private void createCallInfoButton() {
         final Button openCallInfo = (Button) findViewById(R.id.btn_open_call_info);
         openCallInfo.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -91,7 +102,8 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
             }
         });
     }
-    private void callRateInfo(){
+
+    private void callRateInfo() {
         final Dialog dialog = new Dialog(this);
         dialog.setContentView(R.layout.call_rate_information);
         dialog.getWindow().setGravity(80);
@@ -109,13 +121,14 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
         });*/
 
     }
-    private void makeCall(){
+
+    private void makeCall() {
         final String phone = "+319007788990";
         Intent callIntent = new Intent(Intent.ACTION_CALL);
-        callIntent.setData(Uri.parse("tel:"+ phone));
+        callIntent.setData(Uri.parse("tel:" + phone));
         if (ContextCompat.checkSelfPermission(MapsActivity.this, Manifest.permission.CALL_PHONE) != PackageManager.PERMISSION_GRANTED) {
-            ActivityCompat.requestPermissions(MapsActivity.this, new String[]{Manifest.permission.CALL_PHONE},REQUEST_PHONE_CALL);
-        }else
+            ActivityCompat.requestPermissions(MapsActivity.this, new String[]{Manifest.permission.CALL_PHONE}, REQUEST_PHONE_CALL);
+        } else
             startActivity(callIntent);
     }
 
@@ -147,16 +160,36 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
         dialog.show();
 
     }
+    private final LocationListener mLocationListener = new LocationListener() {
+        @Override
+        public void onLocationChanged(Location location) {
 
-    private void getDeviceLocation(){
-        FusedLocationProviderClient mFusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this);
-        try{
-            if(mLocationPermissionsGranted){
-                final Task location = mFusedLocationProviderClient.getLastLocation();
+        }
+
+        @Override
+        public void onStatusChanged(String s, int i, Bundle bundle) {
+
+        }
+
+        @Override
+        public void onProviderEnabled(String s) {
+
+        }
+
+        @Override
+        public void onProviderDisabled(String s) {
+
+        }
+    };
+    private void getDeviceLocation() {
+
+       /* try {
+            if(checkLocationIsOn() == true && checkLocationPermission() == true) {
+                Task location = mFusedLocationProviderClient.getLastLocation();
                 location.addOnCompleteListener(new OnCompleteListener() {
                     @Override
                     public void onComplete(@NonNull Task task) {
-                        if(task.isSuccessful()){
+                        if (task.isSuccessful()) {
                             Location currentLocation = (Location) task.getResult();
                             updateMarker(currentLocation);
                             //mMap.addMarker(new MarkerOptions().position(currentLatlng).title()).showInfoWindow();
@@ -164,69 +197,49 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
                     }
                 });
             }
-        }catch (SecurityException e){
+        } catch (SecurityException e) {
             e.printStackTrace();
-        }
+        }*/
     }
-    public void updateMarker(Location currentLocation){
+
+    public void updateMarker(Location currentLocation) {
         LatLng currentLatlng = new LatLng(currentLocation.getLatitude(), currentLocation.getLongitude());
         mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(currentLatlng, DEFAULT_ZOOM));
 
-        List<Address> currentAddress = new GetCompleteAddress(currentLocation,this).getAddress();
+        List<Address> currentAddress = new GetCompleteAddress(currentLocation, this).getAddress();
 
         Marker currentLocationInfo = mMap.addMarker(new MarkerOptions()
                 .position(currentLatlng)
                 .title("Uw Locatie:")
                 .snippet(currentAddress.get(0).getAddressLine(0)));
+
         mMap.setInfoWindowAdapter(new CustomInfoAdapter(MapsActivity.this));
         currentLocationInfo.setIcon(BitmapDescriptorFactory.fromResource(R.drawable.map_marker));
         currentLocationInfo.showInfoWindow();
         //mMap.addMarker(new MarkerOptions().position(currentLatlng).title("Current Location")).showInfoWindow();
 
     }
-    private void initMap(){
+
+    private void initMap() {
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map);
         mapFragment.getMapAsync(MapsActivity.this);
     }
 
-    private void getLocationPermission(){
-        String[] permissions = {Manifest.permission.ACCESS_FINE_LOCATION,
-                Manifest.permission.ACCESS_COARSE_LOCATION};
-        if(ContextCompat.checkSelfPermission(this.getApplicationContext(),
-                FINE_LOCATION) == PackageManager.PERMISSION_GRANTED){
-            if(ContextCompat.checkSelfPermission(this.getApplicationContext(),
-                    COURSE_LOCATION) == PackageManager.PERMISSION_GRANTED){
-                mLocationPermissionsGranted = true;
-                initMap();
-            }else{
-                ActivityCompat.requestPermissions(this,
-                        permissions,
-                        LOCATION_PERMISSION_REQUEST_CODE);
-            }
-        }else{
-            ActivityCompat.requestPermissions(this,
-                    permissions,
-                    LOCATION_PERMISSION_REQUEST_CODE);
+    private Boolean checkLocationIsOn() {
+        LocationManager manager = (LocationManager) getSystemService(this.LOCATION_SERVICE);
+        if (!manager.isProviderEnabled(LocationManager.GPS_PROVIDER)) {
+            return false;
+        } else {
+            return true;
         }
     }
 
-    @Override
-    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
-        mLocationPermissionsGranted = false;
-        switch(requestCode){
-            case LOCATION_PERMISSION_REQUEST_CODE:{
-                if(grantResults.length > 0){
-                    for(int i = 0; i < grantResults.length; i++){
-                        if(grantResults[i] != PackageManager.PERMISSION_GRANTED){
-                            mLocationPermissionsGranted = false;
-                            finish();
-                        }
-                    }
-                    mLocationPermissionsGranted = true;
-                    //initialize our map
-                    initMap();
-                }
-            }
+    private Boolean checkLocationPermission() {
+        if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(MapsActivity.this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, LOCATION_PERMISSION_REQUEST_CODE);
+        } else {
+            return true;
         }
+        return false;
     }
 }

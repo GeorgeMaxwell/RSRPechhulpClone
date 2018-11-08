@@ -31,27 +31,6 @@ public class MainActivity extends AppCompatActivity {
         });
 
     }
-    public void displayInformation(){
-
-        final Dialog dialog = new Dialog(this);
-        dialog.setContentView(R.layout.gps_confirmation_dialog);
-        dialog.setTitle("Privacy Info");
-        dialog.setCancelable(false);
-
-        final TextView tvPrivacyInfo = (TextView) dialog.findViewById(R.id.gps_confirm_txt);
-        tvPrivacyInfo.requestFocus();
-        Button confirmPrivacy = (Button) dialog.findViewById(R.id.confirm_gps_btn);
-        tvPrivacyInfo.setMovementMethod(LinkMovementMethod.getInstance());
-
-        confirmPrivacy.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                dialog.dismiss();
-            }
-        });
-        dialog.show();
-
-    }
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
@@ -68,7 +47,8 @@ public class MainActivity extends AppCompatActivity {
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_privacy_info) {
-            displayInformation();
+            Intent intent = new Intent(MainActivity.this, AboutRsrActivity.class);
+            MainActivity.this.startActivity(intent);
             return true;
         }
 
