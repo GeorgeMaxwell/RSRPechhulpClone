@@ -53,6 +53,7 @@
             android:paddingLeft="15dp"
             android:paddingRight="26dip"
             android:text="@string/btn_rsr_pechhulp"
+            android:textSize="18sp"
             android:textColor="@android:color/white"
             app:layout_anchor="@+id/image_main_bg"
             app:layout_anchorGravity="bottom|center" />
@@ -67,7 +68,8 @@
             android:drawablePadding="20dp"
             android:paddingLeft="15dp"
             android:paddingRight="26dip"
-            android:text="@string/btn_rsr_pechhulp"
+            android:text="@string/about_rsr_title"
+            android:textSize="18sp"
             android:textColor="@android:color/white"
             app:layout_anchor="@+id/image_main_bg"
             app:layout_anchorGravity="bottom|center"

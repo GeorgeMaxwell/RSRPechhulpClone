@@ -17,7 +17,6 @@ public class SplashScreen extends AppCompatActivity {
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
-                //Do any action here. Now we are moving to next page
                 Intent mySuperIntent = new Intent(SplashScreen.this, MainActivity.class);
                 startActivity(mySuperIntent);
                 finish();

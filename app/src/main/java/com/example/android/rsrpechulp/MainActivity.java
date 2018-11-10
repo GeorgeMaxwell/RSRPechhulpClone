@@ -19,6 +19,14 @@ public class MainActivity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         Button rsrPechhulp = (Button) findViewById(R.id.btn_rsr_pecchulp);
+        rsrPechhulp.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MainActivity.this, MapsActivity.class);
+                MainActivity.this.startActivity(intent);
+            }
+        });
+        //check if the device is a tablet or phone, if its a tablet display the rsrOver button
         isTablet = getResources().getBoolean(R.bool.isTablet);
         if(isTablet) {
             Button rsrOver = (Button) findViewById(R.id.btn_over_rsr);
@@ -30,15 +38,6 @@ public class MainActivity extends AppCompatActivity {
                 }
             });
         }
-
-
-        rsrPechhulp.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(MainActivity.this, MapsActivity.class);
-                MainActivity.this.startActivity(intent);
-            }
-        });
 
     }
     @Override
@@ -53,9 +52,7 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
+        // Handle action bar item clicks
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement

@@ -11,8 +11,11 @@
     <string name="title_activity_maps">RSR Pechhulp</string>
     <string name="remember_warning">onthoud deze locatie voor het telefoongesprek</string>
     <string name="call_rate_title">Belkosten</string>
-    <string name="call_rate_information">Voor dit nummer betaalt u uw gebruikelijke belkosten.</string>
+    <string name="call_rate_information">9,4 cent per gesprek plus 2.8 cent per minuut, plus uw gebruikelijke belkosten.</string>
     <string name="call_button">Bel nu</string>
     <string name="about_rsr_title">Over RSR</string>
     <string name="about_rsr_info"> Met de hulpmiddelen van RSR blijft u mobiel. RSR is dé leverancier van hulpmiddelen in de regio Noordoost-Nederland. Gedegen kennis en jarenlange ervaring zit in ons DNA verweven en leidt tot het beste advies.\n \nWilt u meer weten over onze producten en diensten, kijk dan op <a href = "https://www.rsr.nl">www.rsr.nl </a> of bezoek onze showrooms in Silvolde en Nieuwleusen. We zijn iedere werkdag geopend van 8.00 tot 17.00 uur. Hier kunt u diverse hulpmiddelen uitproberen en rustig bekijken wat goed bij uw situatie aansluit. Samen met u zoeken we naar het hulpmiddel dat bij u past. RSR maakt mensen mobiel.</string>
+    <string name="contact_rsr_nederland">neem contact op met RSR Nederland</string>
+    <string name="rsr_telephone">0900-7788990</string>
+    <string name="call_rates">0900-7788990</string>
 </resources>

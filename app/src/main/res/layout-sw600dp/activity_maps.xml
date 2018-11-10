@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/coordinatorLayout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MapsActivity">
+
+    <fragment
+        xmlns:map="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/map"
+        class="com.google.android.gms.maps.SupportMapFragment"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:scrollbars="vertical" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_anchor="@+id/map"
+        app:layout_anchorGravity="bottom|center"
+        android:background="@android:color/holo_blue_dark"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/contact_rsr_nederland"
+            android:textColor="@android:color/white"
+            android:layout_gravity="center"
+            android:textSize="20sp"
+            app:layout_anchor="@+id/map"
+            app:layout_anchorGravity="bottom|center"
+            android:paddingBottom="20dp"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:drawableLeft="@drawable/main_btn_tel"
+            android:drawablePadding="10dp"
+            android:paddingLeft="15dp"
+            android:paddingRight="26dip"
+            android:text="@string/rsr_telephone"
+            android:textSize="25sp"
+            android:textColor="@android:color/white"
+            android:layout_gravity="center"
+            app:layout_anchor="@+id/map"
+            app:layout_anchorGravity="bottom|center"
+            android:paddingBottom="20dp"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/call_rate_information"
+            android:textColor="@android:color/white"
+            android:textSize="14sp"
+            android:layout_gravity="center"
+            app:layout_anchor="@+id/map"
+            app:layout_anchorGravity="bottom|center"
+            android:paddingBottom="20dp"/>
+
+    </LinearLayout>
+</android.support.design.widget.CoordinatorLayout>
+    <!--/android.support.constraint.ConstraintLayout>-->

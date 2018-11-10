@@ -20,6 +20,7 @@ import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.text.method.LinkMovementMethod;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
@@ -48,21 +49,20 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
     private static final int REQUEST_PHONE_CALL = 2;
     private static final float DEFAULT_ZOOM = 16f;
     private LocationManager mLocationManager;
-    private Boolean mLocationPermissionsGranted = false;
     private Boolean dialogIsShowing = false;
     private GoogleMap mMap;
-
+    Boolean isTablet;
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_maps);
-
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
         getSupportActionBar().setHomeAsUpIndicator(R.drawable.menu_arrow);
         getSupportActionBar().setBackgroundDrawable(new ColorDrawable(Color.parseColor("#ff0099cc")));
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map);
         mapFragment.getMapAsync(MapsActivity.this);
+        isTablet = getResources().getBoolean(R.bool.isTablet);
     }
     @Override
     public boolean onSupportNavigateUp() {
@@ -72,25 +72,30 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
 
     @Override
     public void onMapReady(GoogleMap googleMap) {
-        createCallInfoButton();
         mMap = googleMap;
         if (checkLocationPermission()) {
                 getLocation();
         }
     }
 
+    //check if the user has location services on when returning to the application
     @Override
     protected void onStart() {
         super.onStart();
         mLocationManager = (LocationManager) getSystemService(LOCATION_SERVICE);
         buildAlertMessageNoGps();
+        if(!isTablet) {
+            createCallInfoButton();
+        }
     }
 
     @SuppressLint("MissingPermission")
     public void getLocation() {
-        mLocationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 1000, 1000, this);
-        mLocationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 1000, 1000, this);
+        mLocationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 100, 1000, this);
+        mLocationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 100, 1000, this);
     }
+
+
 
     private Boolean checkLocationPermission() {
         if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED &&
@@ -137,29 +142,26 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
         }
     }
 
+
     private void createCallInfoButton() {
         final Button openCallInfo = (Button) findViewById(R.id.btn_open_call_info);
+        openCallInfo.setVisibility(View.VISIBLE);
         openCallInfo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                openCallInfo.setVisibility(View.GONE);
+                openCallInfo.setVisibility(View.INVISIBLE);
                 callRateInfo();
             }
         });
     }
 
     private void callRateInfo() {
-      //  final Dialog dialog = new Dialog(this);
         final AlertDialog alertDialog = new AlertDialog.Builder(this).create( );
-       // dialog.setContentView(R.layout.call_rate_information);
-        alertDialog.getWindow().setGravity(80);
+        alertDialog.getWindow().setGravity(Gravity.BOTTOM);
         alertDialog.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
-        //dialog.setCancelable(true);
-        //dialog.getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.parseColor("#E6ace600")));
-        //dialog.show();
-        //Button makeCall = (Button) findViewById(R.id.make_call);
         LayoutInflater layoutInflater = LayoutInflater.from(this);
         View promptView = layoutInflater.inflate(R.layout.call_rate_information, null);
+
         Button makeCall = (Button) promptView.findViewById(R.id.make_call);
         makeCall.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -168,10 +170,19 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
                 alertDialog.dismiss();
             }
         });
+
+        Button cancelDialog = (Button) promptView.findViewById(R.id.cancel_call_info_btn);
+        cancelDialog.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                createCallInfoButton();
+                alertDialog.dismiss();
+            }
+        });
+
         alertDialog.setView(promptView);
-
+        alertDialog.setCancelable(false);
         alertDialog.show();
-
     }
 
     private void makeCall() {
@@ -189,8 +200,10 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
         final AlertDialog alertDialog =  builder1.create();
         LayoutInflater layoutInflater = LayoutInflater.from(this);
         View promptView = layoutInflater.inflate(R.layout.gps_confirmation_dialog, null);
+
         alertDialog.setTitle("GPS uitgeschakeld");
         alertDialog.setCancelable(false);
+
         final TextView confirmGpsMessage = (TextView) promptView.findViewById(R.id.gps_confirm_txt);
         confirmGpsMessage.requestFocus();
         confirmGpsMessage.setMovementMethod(LinkMovementMethod.getInstance());
@@ -214,8 +227,11 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
                 finish();
             }
         });
+
+        //prevent multiple alert boxes stacking ontop of each other
         if(dialogIsShowing)
             return;
+        //only show the dialog if gps is not enabled
         if (!mLocationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)) {
             alertDialog.setView(promptView);
             alertDialog.show();
@@ -227,7 +243,6 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
     public void updateMarker(Location currentLocation) {
         LatLng currentLatlng = new LatLng(currentLocation.getLatitude(), currentLocation.getLongitude());
         mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(currentLatlng, DEFAULT_ZOOM));
-
         List<Address> currentAddress = new GetCompleteAddress(currentLocation, this).getAddress();
 
         Marker currentLocationInfo = mMap.addMarker(new MarkerOptions()
@@ -237,13 +252,10 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
         mMap.setInfoWindowAdapter(new CustomInfoAdapter(MapsActivity.this));
         currentLocationInfo.setIcon(BitmapDescriptorFactory.fromResource(R.drawable.map_marker));
         currentLocationInfo.showInfoWindow();
-        //mMap.addMarker(new MarkerOptions().position(currentLatlng).title("Current Location")).showInfoWindow();
-
     }
 
     @Override
     public void onLocationChanged(Location location) {
-
         updateMarker(location);
     }
 
