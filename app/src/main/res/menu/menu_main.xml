@@ -5,7 +5,7 @@
 
 
     <item
-        android:id="@+id/action_privacy_info"
+        android:id="@+id/action_over_rsr"
         android:icon="@drawable/ic_action_name"
         android:title="@string/action_info"
         app:showAsAction="always" />

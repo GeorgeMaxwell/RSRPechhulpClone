@@ -1,19 +1,16 @@
 package com.example.android.rsrpechulp;
 
-import android.app.Dialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.text.method.LinkMovementMethod;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
-import android.widget.TextView;
 
 public class MainActivity extends AppCompatActivity {
-
+    Boolean isTablet;
     @Override
 
     protected void onCreate(Bundle savedInstanceState) {
@@ -22,6 +19,19 @@ public class MainActivity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         Button rsrPechhulp = (Button) findViewById(R.id.btn_rsr_pecchulp);
+        isTablet = getResources().getBoolean(R.bool.isTablet);
+        if(isTablet) {
+            Button rsrOver = (Button) findViewById(R.id.btn_over_rsr);
+            rsrOver.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent = new Intent(MainActivity.this, AboutRsrActivity.class);
+                    MainActivity.this.startActivity(intent);
+                }
+            });
+        }
+
+
         rsrPechhulp.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -35,6 +45,9 @@ public class MainActivity extends AppCompatActivity {
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_main, menu);
+        if (isTablet){
+            menu.findItem(R.id.action_over_rsr).setVisible(false);
+        }
         return true;
     }
 
@@ -46,7 +59,7 @@ public class MainActivity extends AppCompatActivity {
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
-        if (id == R.id.action_privacy_info) {
+        if (id == R.id.action_over_rsr) {
             Intent intent = new Intent(MainActivity.this, AboutRsrActivity.class);
             MainActivity.this.startActivity(intent);
             return true;

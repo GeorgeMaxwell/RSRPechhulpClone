@@ -1,32 +1,33 @@
 <?xml version="1.0" encoding="utf-8"?>
-    <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/frame_layout"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="210dp"
     android:fitsSystemWindows="true"
+    app:layout_anchorGravity="center"
+    android:background="#8c54e026"
     tools:context=".MapsActivity">
 
     <Button
         android:id="@+id/call_info_btn"
-        android:layout_width="161dp"
-        android:layout_height="wrap_content"
+        android:layout_width="150dp"
+        android:layout_height="30dp"
         android:layout_gravity="left|center_vertical"
-        android:layout_marginLeft="60dp"
-        android:layout_marginTop="40dp"
+        android:layout_marginTop="-20dp"
         android:background="@android:color/holo_blue_dark"
         android:drawableStart="@drawable/main_btn_close"
         android:drawableLeft="@drawable/main_btn_close"
-        android:drawablePadding="2dip"
-        android:paddingStart="30dip"
         android:paddingLeft="30dip"
-        android:paddingEnd="26dip"
         android:paddingRight="26dip"
         android:text="@string/cancel_dialog"
-        android:textColor="@android:color/white" />
+        android:textColor="@android:color/white"
+        app:layout_anchor="@+id/linear_layout_call_info"
+        app:layout_anchorGravity="left|top" />
 
     <LinearLayout
+        android:id="@+id/linear_layout_call_info"
         android:layout_width="258dp"
         android:layout_height="192dp"
         android:layout_gravity="bottom|center"
@@ -70,4 +71,4 @@
     </LinearLayout>
 
 
-</FrameLayout>
+</android.support.design.widget.CoordinatorLayout>
