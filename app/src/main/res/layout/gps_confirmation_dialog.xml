@@ -5,14 +5,7 @@
     android:orientation="vertical"
     android:padding="15dp">
 
-    <TextView
-        android:id="@+id/gps_confirm_title"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:inputType="none"
-        android:text="@string/dialog_info_title"
-        android:textSize="7pt"
-        android:textStyle="bold" />
+
     <TextView
         android:id="@+id/gps_confirm_txt"
         android:layout_width="wrap_content"
@@ -20,7 +13,8 @@
         android:inputType="none"
         android:text="@string/dialog_info_text"
         android:textSize="8pt"
-        android:textStyle="bold"/>
+        android:textColor="@android:color/black"
+        />
 
     <RelativeLayout
         android:id="@+id/relativeLayout1"

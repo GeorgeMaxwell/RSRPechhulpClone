@@ -55,7 +55,7 @@ public class MainActivity extends AppCompatActivity {
         // Handle action bar item clicks
         int id = item.getItemId();
 
-        //noinspection SimplifiableIfStatement
+        //id button clicked take user to about rsr page
         if (id == R.id.action_over_rsr) {
             Intent intent = new Intent(MainActivity.this, AboutRsrActivity.class);
             MainActivity.this.startActivity(intent);

@@ -9,7 +9,7 @@
     <string name="dialog_info_text">"Uw GPS is uitgeschakeld. Schakel het alstublieft in om door te gaan?</string>
     <string name="dialog_info_title">"GPS uitgeschakeld</string>
     <string name="title_activity_maps">RSR Pechhulp</string>
-    <string name="remember_warning">onthoud deze locatie voor het telefoongesprek</string>
+    <string name="remember_warning">Onthoud deze locatie voor het telefoongesprek</string>
     <string name="call_rate_title">Belkosten</string>
     <string name="call_rate_information">9,4 cent per gesprek plus 2.8 cent per minuut, plus uw gebruikelijke belkosten.</string>
     <string name="call_button">Bel nu</string>

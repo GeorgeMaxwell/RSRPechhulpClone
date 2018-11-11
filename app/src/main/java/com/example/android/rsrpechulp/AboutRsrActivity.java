@@ -14,9 +14,6 @@ public class AboutRsrActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayShowHomeEnabled(true);
         getSupportActionBar().setHomeAsUpIndicator(R.drawable.menu_arrow);
         getSupportActionBar().setBackgroundDrawable(new ColorDrawable(Color.parseColor("#ff0099cc")));
-        //TextView tvRsrInfo = (TextView) findViewById(R.id.rsr_info);
-
-
     }
     @Override
     public boolean onSupportNavigateUp() {

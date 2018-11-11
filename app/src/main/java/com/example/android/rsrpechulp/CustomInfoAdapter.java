@@ -10,6 +10,7 @@ import com.google.android.gms.maps.model.Marker;
 
 public class CustomInfoAdapter implements GoogleMap.InfoWindowAdapter {
     private LayoutInflater inflater;
+    // adapter to display current location information
 
     public CustomInfoAdapter(Context context) {
         inflater = (LayoutInflater) context.getSystemService( Context.LAYOUT_INFLATER_SERVICE );

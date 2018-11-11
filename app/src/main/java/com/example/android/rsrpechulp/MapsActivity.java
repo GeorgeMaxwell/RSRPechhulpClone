@@ -91,6 +91,7 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
 
     @SuppressLint("MissingPermission")
     public void getLocation() {
+        // get location using both network and gps providers, no need for permission check as that is done before the method is called
         mLocationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 100, 1000, this);
         mLocationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 100, 1000, this);
     }
@@ -111,6 +112,7 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         switch (requestCode) {
             case LOCATION_PERMISSION_REQUEST_CODE: {
+                // if location is not granted return to main activity else get the location
                 if (grantResults.length > 0
                         && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                     if ((ContextCompat.checkSelfPermission(this,
@@ -126,6 +128,7 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
                 return;
             }
             case REQUEST_PHONE_CALL:{
+                // if phone call permission is granted make the call else return the user to call rate info dialog
                 if (grantResults.length > 0
                         && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                     if (ContextCompat.checkSelfPermission(this,
@@ -134,7 +137,7 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
                         makeCall();
                     }
                 } else {
-                    return;
+                    callRateInfo();
                 }
 
             }
@@ -191,8 +194,10 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
         callIntent.setData(Uri.parse("tel:" + phone));
         if (ContextCompat.checkSelfPermission(MapsActivity.this, Manifest.permission.CALL_PHONE) != PackageManager.PERMISSION_GRANTED) {
             ActivityCompat.requestPermissions(MapsActivity.this, new String[]{Manifest.permission.CALL_PHONE}, REQUEST_PHONE_CALL);
+            createCallInfoButton();
         } else
             startActivity(callIntent);
+        createCallInfoButton();
     }
 
     private void buildAlertMessageNoGps() {
@@ -228,7 +233,7 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
             }
         });
 
-        //prevent multiple alert boxes stacking ontop of each other
+        //prevent multiple alert boxes stacking on top of each other
         if(dialogIsShowing)
             return;
         //only show the dialog if gps is not enabled

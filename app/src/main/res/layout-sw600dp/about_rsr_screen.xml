@@ -1,12 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
 
     <ImageView
         android:layout_width="match_parent"
-        android:layout_height="600dp"
+        android:layout_height="350dp"
         android:layout_gravity="top"
         android:layout_marginTop="-10dp"
         android:scaleType="fitXY"
@@ -16,11 +17,11 @@
         android:id="@+id/rsr_info"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="5dp"
+        android:layout_marginLeft="20dp"
         android:autoLink="web"
+        android:textSize="18sp"
         android:text="@string/about_rsr_info"
-        android:textColorLink="@android:color/holo_blue_dark"
-        android:textSize="24sp" />
+        android:textColorLink="@android:color/holo_blue_dark" />
 
     <android.support.v7.widget.AppCompatImageView
         android:layout_width="171dp"
